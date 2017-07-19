@@ -4,7 +4,7 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [],//auth.associateCurrentUser({as: 'ownerId'})
+    create: [auth.associateCurrentUser({as: 'ownerId'})],//
     update: [],
     patch: [],
     remove: []
