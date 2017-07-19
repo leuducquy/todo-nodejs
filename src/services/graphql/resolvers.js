@@ -1,6 +1,6 @@
 import feathers from 'feathers-client';
 import superagent from 'superagent';
-
+import {pubsub}  from './index';
 export default function Resolvers() {
   let app = this;
   
@@ -28,16 +28,20 @@ export default function Resolvers() {
     },
     RootQuery: {
       viewer(root, data, context) {
-        return Viewer.find(data);
+        return Viewer.find(datcontexta);
       }
     },
     RootMutation: {
       createTaco(root, data, context) {
         console.log(Tacos);
-        return Tacos.create(data, context);
+        return Tacos.create(data, context)
+        
       },
-      createTodo(root, {text , complete , token}, context) {
-        return Todos.create({text , complete}, {token});
+      createTodo(root, data, context) {
+        console.log(context);
+        return Todos.create(data, context).then(todo => {
+          pubsub.publish('todoAdded' , todo);
+        });;
       },
       signUp(root, args, context) {
         console.log(args);
@@ -50,6 +54,13 @@ export default function Resolvers() {
           password
         });
       },
+      Subscription : {
+        todoAdded(todo){
+          console.log('subscirption call');
+             console.log(todo);
+          return todo;
+        }
+      }
     }
   };
 }

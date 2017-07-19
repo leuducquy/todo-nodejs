@@ -25,13 +25,15 @@ type Authorized {
   data: User
 }
 type RootQuery {
-  viewer(token : String): User
+  viewer(): User
+}
+type Subscription {
+  todoAdd(): Todo
 }
 type RootMutation {
   createTodo (
     text: String!
     complete : Boolean
-    token : String!
   ): Todo
   createTaco (
     meat: String!
@@ -50,6 +52,7 @@ type RootMutation {
 schema {
   query: RootQuery
   mutation: RootMutation
+  subscription : Subscription
 }
 `;
 

@@ -1,7 +1,11 @@
 const auth = require('feathers-authentication').hooks;
 module.exports = {
   before: {
-    all: [],
+    all: [
+      auth.verifyToken(),
+      auth.populateUser(),
+      auth.restrictToAuthenticated()
+    ],
     find: [],
     get: [],
     create: [auth.associateCurrentUser({as: 'ownerId'})],//

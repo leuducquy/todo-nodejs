@@ -51,7 +51,6 @@ module.exports = function () {
   ));
 
   const subscriptionServer = new SubscriptionServer(
-
     {
       schema : Schema,
       execute,
