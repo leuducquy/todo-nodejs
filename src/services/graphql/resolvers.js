@@ -27,8 +27,8 @@ export default function Resolvers() {
       }
     },
     RootQuery: {
-      viewer(root, args, context) {
-        return Viewer.find(context);
+      viewer(root, data, context) {
+        return Viewer.find(data);
       }
     },
     RootMutation: {
@@ -36,9 +36,8 @@ export default function Resolvers() {
         console.log(Tacos);
         return Tacos.create(data, context);
       },
-      createTodo(root, data, context) {
-        console.log(data);
-        return Todos.create(data, context);
+      createTodo(root, {text , complete , token}, context) {
+        return Todos.create({text , complete}, {token});
       },
       signUp(root, args, context) {
         console.log(args);

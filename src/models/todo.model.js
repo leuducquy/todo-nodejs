@@ -7,7 +7,6 @@ module.exports = function (sequelize) {
       type: Sequelize.STRING,
       allowNull: false
     },
-  
      complete: {
       type: Sequelize.BOOLEAN,
     }
