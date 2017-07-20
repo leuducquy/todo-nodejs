@@ -27,8 +27,12 @@ export default function Resolvers() {
       }
     },
     RootQuery: {
-      viewer(root, data, context) {
-        return Viewer.find(datcontexta);
+      viewer(root, token, context) {
+        console.log()
+        return Viewer.find({
+          provider :context.provider,
+          token,
+        });
       }
     },
     RootMutation: {
@@ -37,9 +41,9 @@ export default function Resolvers() {
         return Tacos.create(data, context)
         
       },
-      createTodo(root, data, context) {
+      createTodo(root, {text,complete,token}, context) {
         console.log(context);
-        return Todos.create(data, context).then(todo => {
+        return Todos.create({text,complete}, {provider : context.provider,token}).then(todo => {
           pubsub.publish('todoAdded' , todo);
         });;
       },
@@ -54,13 +58,12 @@ export default function Resolvers() {
           password
         });
       },
-      Subscription : {
+     
+    },
+     Subscription : {
         todoAdded(todo){
-          console.log('subscirption call');
-             console.log(todo);
           return todo;
         }
       }
-    }
   };
 }

@@ -8,10 +8,9 @@ import { SubscriptionManager, PubSub } from 'graphql-subscriptions';
 import { createServer } from 'http';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 const hooks = require('./hooks');
-
+export  const pubsub = new PubSub();
 
 module.exports = function () {
-  const pubsub = new PubSub();
 
   const subscriptionManager = new SubscriptionManager({
     schema: Schema,
@@ -27,11 +26,10 @@ module.exports = function () {
   });
 
   app.use('/graphql', graphqlExpress((req) => {
-    const { token, provider } = req.feathers;
+    const {  provider } = req.feathers;
     return {
       schema: executableSchema,
       context: {
-        token,
         provider
       }
     };
@@ -52,9 +50,7 @@ module.exports = function () {
 
   const subscriptionServer = new SubscriptionServer(
     {
-      schema : Schema,
-      execute,
-      subscribe,
+      subscriptionManager,
 
     },
     {
