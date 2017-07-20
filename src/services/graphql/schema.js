@@ -26,8 +26,7 @@ type Authorized {
   data: User
 }
 type RootQuery {
-  viewer
-  (token:String!): User
+   viewer(token: String!): User
 }
 type Subscription {
   todoAdded: Todo

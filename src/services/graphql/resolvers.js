@@ -24,10 +24,18 @@ export default function Resolvers() {
             ownerId: user.id
           }
         });
+      },
+       todos(user, args, context) {
+        return Todos.find({
+          query: {
+            ownerId: user.id
+          }
+        });
       }
     },
     RootQuery: {
       viewer(root, { token }, context) {
+        console.log(token);
         return Viewer.find({
           provider: context.provider,
           token,
