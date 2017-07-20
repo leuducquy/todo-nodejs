@@ -28,8 +28,9 @@ type Authorized {
 type RootQuery {
    viewer(token: String!): User
 }
+
 type Subscription {
-  todoAdded: Todo
+  todoAdded: Todo!
 }
 type RootMutation {
   createTodo (

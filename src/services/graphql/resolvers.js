@@ -25,7 +25,7 @@ export default function Resolvers() {
           }
         });
       },
-       todos(user, args, context) {
+      todos(user, args, context) {
         return Todos.find({
           query: {
             ownerId: user.id
@@ -35,7 +35,6 @@ export default function Resolvers() {
     },
     RootQuery: {
       viewer(root, { token }, context) {
-        console.log(token);
         return Viewer.find({
           provider: context.provider,
           token,
@@ -75,6 +74,7 @@ export default function Resolvers() {
     },
     Subscription: {
       todoAdded(todo) {
+        console.log(todo);
         return todo;
       }
     }

@@ -8,7 +8,6 @@ class Service {
   }
 
   find(params) {
-    console.log(params);
     return Promise.resolve(params.user);
   }
 }
