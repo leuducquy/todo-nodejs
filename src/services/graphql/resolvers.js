@@ -1,9 +1,9 @@
 import feathers from 'feathers-client';
 import superagent from 'superagent';
-import {pubsub}  from './index';
+import { pubsub } from './index';
 export default function Resolvers() {
   let app = this;
-  
+
   const Tacos = app.service('tacos');
   const Todos = app.service('todos');
   const Users = app.service('users');
@@ -27,10 +27,9 @@ export default function Resolvers() {
       }
     },
     RootQuery: {
-      viewer(root, token, context) {
-        console.log()
+      viewer(root, { token }, context) {
         return Viewer.find({
-          provider :context.provider,
+          provider: context.provider,
           token,
         });
       }
@@ -38,14 +37,20 @@ export default function Resolvers() {
     RootMutation: {
       createTaco(root, data, context) {
         console.log(Tacos);
-        return Tacos.create(data, context)
-        
+        return Tacos.create(data, context);
       },
-      createTodo(root, {text,complete,token}, context) {
-        console.log(context);
-        return Todos.create({text,complete}, {provider : context.provider,token}).then(todo => {
-          pubsub.publish('todoAdded' , todo);
-        });;
+      createTodo(root, { text, complete, token }, context) {
+        return Todos.create(
+          { text, complete },
+          {
+            provider: context.provider,
+            token
+          }
+        ).then(todo => {
+          pubsub.publish('todoAdded', todo);
+        }).catch(err => {
+          console.log(err);
+        });
       },
       signUp(root, args, context) {
         console.log(args);
@@ -58,12 +63,12 @@ export default function Resolvers() {
           password
         });
       },
-     
+
     },
-     Subscription : {
-        todoAdded(todo){
-          return todo;
-        }
+    Subscription: {
+      todoAdded(todo) {
+        return todo;
       }
+    }
   };
 }

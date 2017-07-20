@@ -12,7 +12,7 @@ class Service {
   }
 }
 
-module.exports = function(){
+module.exports = function () {
   const app = this;
 
   // Initialize our service with any options it requires

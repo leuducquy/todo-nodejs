@@ -15,6 +15,7 @@ type User {
   id: String! 
   email: String!
   secretBurritos: [SecretBurrito]
+  todos : [Todo]
 }
 type SecretBurrito {
   id: String
@@ -26,7 +27,7 @@ type Authorized {
 }
 type RootQuery {
   viewer
-  (token : String!): User
+  (token:String!): User
 }
 type Subscription {
   todoAdded: Todo
