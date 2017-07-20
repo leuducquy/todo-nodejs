@@ -25,10 +25,10 @@ type Authorized {
   data: User
 }
 type RootQuery {
-  viewer(): User
+  viewer: User
 }
 type Subscription {
-  todoAdd(): Todo
+  todoAdd: Todo
 }
 type RootMutation {
   createTodo (
