@@ -47,6 +47,15 @@ export default function Resolvers() {
           console.log(err);
         });
       },
+      deleteTodo(root, { id, token }, context) {
+        return Todos.remove(
+           id ,
+          {
+            provider: context.provider,
+            token
+          }
+        )
+      },
       signUp(root, args, context) {
         console.log(args);
         return Users.create(args);
@@ -62,7 +71,6 @@ export default function Resolvers() {
     },
     Subscription: {
       todoAdded(todo) {
-        console.log(todo);
         return todo;
       }
     }

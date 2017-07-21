@@ -29,6 +29,10 @@ type RootMutation {
     complete : Boolean
     token : String!
   ): Todo
+  deleteTodo (
+    id : String!
+    token : String!
+  ) :Todo
   signUp (
     email: String!
     password: String!
