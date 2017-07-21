@@ -27,7 +27,8 @@ module.exports = function () {
     }
   }))
   app.use('/graphiql', graphiqlExpress({
-    endpointURL: '/graphql'
+    endpointURL: '/graphql',
+    subscriptionsEndpoint :`ws://localhost:5000/subscriptions`,
   }));
   const WS_PORT = 5000;
   const subscriptionManager = new SubscriptionManager({
