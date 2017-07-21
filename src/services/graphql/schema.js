@@ -5,22 +5,13 @@ type Todo {
   complete: Boolean
   ownerId : String
 }
-type Taco {
-  id: String
-  meat: String
-  cheese: String
-  salsa: String
-}
+
 type User {
   id: String! 
   email: String!
-  secretBurritos: [SecretBurrito]
   todos : [Todo]
 }
-type SecretBurrito {
-  id: String
-  size: String
-}
+
 type Authorized {
   token: String 
   data: User
@@ -38,11 +29,6 @@ type RootMutation {
     complete : Boolean
     token : String!
   ): Todo
-  createTaco (
-    meat: String!
-    cheese: String
-    salsa: String
-  ): Taco
   signUp (
     email: String!
     password: String!

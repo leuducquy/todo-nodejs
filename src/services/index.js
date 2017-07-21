@@ -1,7 +1,5 @@
 'use strict';
 const viewer = require('./viewer');
-const secretBurrito = require('./secretBurrito');
-const taco = require('./taco');
 const graphql = require('./graphql');
 const authentication = require('./authentication');
 const user = require('./user');
@@ -19,9 +17,7 @@ module.exports = function() {
 
   app.configure(authentication);
   app.configure(user);
-  app.configure(taco);
   app.configure(todo);
-  app.configure(secretBurrito);
   app.configure(viewer);
   app.configure(graphql);
   //setup relationship

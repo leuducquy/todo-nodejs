@@ -3,8 +3,6 @@ import superagent from 'superagent';
 import { pubsub } from './index';
 export default function Resolvers() {
   let app = this;
-
-  const Tacos = app.service('tacos');
   const Todos = app.service('todos');
   const Users = app.service('users');
   const SecretBurritos = app.service('secretBurritos');
@@ -18,13 +16,6 @@ export default function Resolvers() {
 
   return {
     User: {
-      secretBurritos(user, args, context) {
-        return SecretBurritos.find({
-          query: {
-            ownerId: user.id
-          }
-        });
-      },
       todos(user, args, context) {
         return Todos.find({
           query: {
@@ -42,10 +33,6 @@ export default function Resolvers() {
       }
     },
     RootMutation: {
-      createTaco(root, data, context) {
-        console.log(Tacos);
-        return Tacos.create(data, context);
-      },
       createTodo(root, { text, complete, token }, context) {
         return Todos.create(
           { text, complete },
@@ -55,6 +42,7 @@ export default function Resolvers() {
           }
         ).then(todo => {
           pubsub.publish('todoAdded', todo);
+          return todo;
         }).catch(err => {
           console.log(err);
         });
