@@ -14,7 +14,7 @@ export default function Resolvers() {
     .configure(feathers.hooks())
     .configure(feathers.authentication());
 
- 
+
   return {
     User: {
       todos(user, args, context) {
@@ -43,7 +43,7 @@ export default function Resolvers() {
           }
         ).then(todo => {
           pubsub.publish('todoChanges', {
-            op :'created',
+            op: 'created',
             todo
           });
           return todo;
@@ -51,7 +51,7 @@ export default function Resolvers() {
           console.log(err);
         });
       },
-       deleteTodo(root, { id, token }, context) {
+      deleteTodo(root, { id, token }, context) {
         return Todos.remove(id, {
           provider: context.provider,
           token,
@@ -59,6 +59,21 @@ export default function Resolvers() {
           .then(todo => {
             pubsub.publish('todoChanges', {
               op: 'deleted',
+              todo,
+            });
+          });
+      },
+      updateTodo(root,
+        { id, text, complete,token }, context) {
+        return Todos.update(id,
+          {text,complete},
+           {
+          provider: context.provider,
+          token,
+        })
+          .then(todo => {
+            pubsub.publish('todoChanges', {
+              op: 'update',
               todo,
             });
           });

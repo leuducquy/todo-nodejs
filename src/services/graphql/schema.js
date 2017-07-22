@@ -38,6 +38,8 @@ type RootMutation {
   ) :Todo
    updateTodo (
     id : String!
+    text : String!
+    complete : Boolean!
     token : String!
   ) :Todo
   signUp (
