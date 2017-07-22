@@ -23,7 +23,6 @@ module.exports = function (sequelize) {
       freezeTableName: true,
       classMethods: {
         associate(models) {
-          console.log(models);
           user.hasMany(models.todos, { foreignKey: 'ownerId' });
         },
       },

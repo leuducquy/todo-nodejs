@@ -36,6 +36,10 @@ type RootMutation {
     id : String!
     token : String!
   ) :Todo
+   updateTodo (
+    id : String!
+    token : String!
+  ) :Todo
   signUp (
     email: String!
     password: String!
