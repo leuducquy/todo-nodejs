@@ -14,7 +14,7 @@ const socketio = require('feathers-socketio');
 const middleware = require('./middleware');
 const services = require('./services');
 
-
+//aaa
 const sequelize = require('./sequelize');
 
 const app = feathers();
