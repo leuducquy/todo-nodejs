@@ -5,7 +5,10 @@ type Todo {
   complete: Boolean
   ownerId : String
 }
-
+type TodoCrud {
+  op : String!
+  todo: Todo!
+}
 type User {
   id: String! 
   email: String!
@@ -21,7 +24,7 @@ type RootQuery {
 }
 
 type Subscription {
-  todoAdded: Todo!
+  todoChanges: TodoCrud!
 }
 type RootMutation {
   createTodo (
