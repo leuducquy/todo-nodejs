@@ -63,23 +63,24 @@ export default function Resolvers() {
             });
           });
       },
-      updateTodo(root,
-        { id, text, complete,token }, context) {
-        return Todos.update(id,
-          {text,complete},
-           {
+     updateTodo(root, 
+      { id, text, complete, token },
+      context) {
+        return Todos.update(id, {
+          text,
+          complete,
+        },{
           provider: context.provider,
           token,
         })
           .then(todo => {
             pubsub.publish('todoChanges', {
-              op: 'update',
+              op: 'updated',
               todo,
             });
           });
       },
       signUp(root, args, context) {
-        console.log(args);
         return Users.create(args);
       },
       login(root, { email, password }, context) {
