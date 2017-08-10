@@ -13,18 +13,7 @@ module.exports = function (sequelize) {
   },{
     freezeTableName: true
   });
-    // id: {
-    //   type: Sequelize.STRING,
-    //   allowNull: false,
-    //  primaryKey: true
-    // },
-    // ownerId: {
-    //   type: Sequelize.STRING,
-    //   allowNull: false
-    // },
-    // complete: {
-    //   type: Sequelize.BOOLEAN,
-    // }
+
 
 
 //  todo.sync();

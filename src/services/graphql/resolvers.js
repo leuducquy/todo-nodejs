@@ -4,6 +4,7 @@ import { pubsub } from './index';
 export default function Resolvers() {
   let app = this;
   const Todos = app.service('todos');
+  const TodoList = app.service('todoList');
   const Users = app.service('users');
   const SecretBurritos = app.service('secretBurritos');
   const Viewer = app.service('viewer');
@@ -16,9 +17,18 @@ export default function Resolvers() {
 
 
   return {
-    User: {
+     TodoList: {
       todos(user, args, context) {
-        return Todos.find({
+        return TodoList.find({
+          query: {
+            listId: todoList.id
+          }
+        });
+      }
+    },
+    User: {
+      todoList(user, args, context) {
+        return TodoList.find({
           query: {
             ownerId: user.id
           }
@@ -34,9 +44,18 @@ export default function Resolvers() {
       }
     },
     RootMutation: {
-      createTodo(root, { text, complete, token }, context) {
+      createTodoList(root, { name, token }, context) {
+        return TodoList.create(
+          { name },
+          {
+            provider: context.provider,
+            token
+          }
+        );
+      },
+      createTodo(root, {listId, text, complete, token }, context) {
         return Todos.create(
-          { text, complete },
+          { text, complete,listId },
           {
             provider: context.provider,
             token

@@ -12,6 +12,10 @@ type TodoCrud {
 type User {
   id: String! 
   email: String!
+  todoList : TodoList
+}
+type TodoList {
+  name: String!
   todos : [Todo]
 }
 
@@ -30,8 +34,13 @@ type RootMutation {
   createTodo (
     text: String!
     complete : Boolean
+    listId:String!
     token : String!
   ): Todo
+  createTodoList (
+    name: String!
+    token : String!
+  ):TodoList
   deleteTodo (
     id : String!
     token : String!
