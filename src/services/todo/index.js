@@ -8,13 +8,14 @@ module.exports = function () {
   const options = {
     Model: createModel(app.get('sequelize'))
   };
-
+ 
+ 
   // Initialize our service with any options it requires
   app.use('/todos', createService(options));
-
+ 
   // Get our initialize service to that we can bind hooks
   const todoService = app.service('/todos');
-
+ console.log('todoService o',app);
   // Set up our before hooks
   todoService.before(hooks.before);
 

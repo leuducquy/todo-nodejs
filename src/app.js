@@ -15,9 +15,10 @@ const middleware = require('./middleware');
 const services = require('./services');
 
 //aaa
-const sequelize = require('./sequelize');
+//const sequelize = require('./sequelize');
 
 const app = feathers();
+console.log('__dirname',__dirname);
 
 app.configure(configuration(path.join(__dirname, '..')));
 
@@ -34,5 +35,5 @@ app.use(compress())
   .configure(services)
   .configure(middleware);
 
-app.configure(sequelize);
+//app.configure(sequelize);
 module.exports = app;

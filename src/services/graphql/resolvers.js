@@ -17,9 +17,10 @@ export default function Resolvers() {
 
 
   return {
-     TodoList: {
-      todos(user, args, context) {
-        return TodoList.find({
+    TodoList: {
+      todos(todoList, args, context) {
+        console.log('get todoList ser ', context);
+        return Todos.find({
           query: {
             listId: todoList.id
           }
@@ -53,9 +54,9 @@ export default function Resolvers() {
           }
         );
       },
-      createTodo(root, {listId, text, complete, token }, context) {
+      createTodo(root, { listId, text, complete, token }, context) {
         return Todos.create(
-          { text, complete,listId },
+          { text, complete, listId },
           {
             provider: context.provider,
             token
@@ -82,16 +83,16 @@ export default function Resolvers() {
             });
           });
       },
-     updateTodo(root, 
-      { id, text, complete, token },
-      context) {
+      updateTodo(root,
+        { id, text, complete, token },
+        context) {
         return Todos.update(id, {
           text,
           complete,
-        },{
-          provider: context.provider,
-          token,
-        })
+        }, {
+            provider: context.provider,
+            token,
+          })
           .then(todo => {
             pubsub.publish('todoChanges', {
               op: 'updated',
@@ -100,7 +101,8 @@ export default function Resolvers() {
           });
       },
       signUp(root, args, context) {
-        return Users.create(args);
+        return Users.create(args).then(data => {
+        });
       },
       login(root, { email, password }, context) {
         return Auth.authenticate({

@@ -17,7 +17,7 @@ module.exports = function () {
     logging: false
   });
   app.set('sequelize', sequelize);
-  // Setup relationships
+  
 
   app.configure(authentication);
   app.configure(user);
@@ -30,7 +30,9 @@ module.exports = function () {
   Object.keys(models).forEach(name => {
     if ('associate' in models[name]) {
       models[name].associate(models);
+     
     }
   });
+  
   sequelize.sync();
 };

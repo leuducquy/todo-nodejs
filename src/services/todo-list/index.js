@@ -13,10 +13,10 @@ module.exports = function () {
   };
 
   // Initialize our service with any options it requires
-  app.use('/todo-list', createService(options));
+  app.use('/todoList', createService(options));
 
   // Get our initialized service so that we can register hooks and filters
-  const todoService = app.service('/todo-list');
+  const todoService = app.service('/todoList');
 
   // Set up our before hooks
   todoService.before(hooks.before);

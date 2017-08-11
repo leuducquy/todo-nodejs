@@ -19,6 +19,8 @@ module.exports = function () {
   });
   app.use('/graphql', graphqlExpress((req) => {
     const { provider } = req.feathers;
+    console.log('request' ,provider);
+    
     return {
       schema: executableSchema,
       context: {
