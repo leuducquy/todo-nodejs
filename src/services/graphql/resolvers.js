@@ -19,7 +19,6 @@ export default function Resolvers() {
   return {
     TodoList: {
       todos(todoList, args, context) {
-        console.log('get todoList ser ', context);
         return Todos.find({
           query: {
             listId: todoList.id

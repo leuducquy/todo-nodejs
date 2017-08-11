@@ -12,9 +12,10 @@ type TodoCrud {
 type User {
   id: String! 
   email: String!
-  todoList : TodoList
+  todoList : [TodoList]
 }
 type TodoList {
+  id: String 
   name: String!
   todos : [Todo]
 }

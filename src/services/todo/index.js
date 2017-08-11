@@ -15,7 +15,7 @@ module.exports = function () {
  
   // Get our initialize service to that we can bind hooks
   const todoService = app.service('/todos');
- console.log('todoService o',app);
+ 
   // Set up our before hooks
   todoService.before(hooks.before);
 
