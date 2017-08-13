@@ -40,21 +40,16 @@ export default function Resolvers() {
         return Viewer.find({
           provider: context.provider,
           token,
-        });
+        }).catch(error => {
+        
+
+        })
       }
     },
     RootMutation: {
-      createTodoList(root, { name, token }, context) {
-        return TodoList.create(
-          { name },
-          {
-            provider: context.provider,
-            token
-          }
-        );
-      },
+
       createTodo(root, { listId, text, complete, token }, context) {
-        return Todos.create(
+        return Todos.patch(
           { text, complete, listId },
           {
             provider: context.provider,
@@ -66,6 +61,23 @@ export default function Resolvers() {
             todo
           });
           return todo;
+        }).catch(err => {
+          console.log(err);
+        });
+      },
+      createTodoList(root, { name, token }, context) {
+        return TodoList.create(
+          { name },
+          {
+            provider: context.provider,
+            token
+          }
+        ).then(todoList => {
+          pubsub.publish('todoListChanges', {
+            op: 'created',
+            todoList
+          });
+          return todoList;
         }).catch(err => {
           console.log(err);
         });
@@ -115,6 +127,9 @@ export default function Resolvers() {
     Subscription: {
       todoChanges(todo) {
         return todo;
+      },
+      todoListChanges(todoList) {
+        return todoList;
       }
     }
   };

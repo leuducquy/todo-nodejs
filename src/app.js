@@ -18,7 +18,6 @@ const services = require('./services');
 //const sequelize = require('./sequelize');
 
 const app = feathers();
-console.log('__dirname',__dirname);
 
 app.configure(configuration(path.join(__dirname, '..')));
 

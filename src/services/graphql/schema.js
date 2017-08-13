@@ -9,6 +9,10 @@ type TodoCrud {
   op : String!
   todo: Todo!
 }
+type TodoListCrud {
+  op : String!
+  todoList: TodoList!
+}
 type User {
   id: String! 
   email: String!
@@ -30,6 +34,7 @@ type RootQuery {
 
 type Subscription {
   todoChanges: TodoCrud!
+  todoListChanges: TodoListCrud!
 }
 type RootMutation {
   createTodo (
